@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Snapbuild — SVG-компоновщик
 
-## Getting Started
+Редактор собирает иллюстрации для обложек из библиотеки Snapbuild. Подбор, раскладка, перекраска и экспорт выполняются в браузере. Next.js отдаёт страницу и исходные SVG. Для запуска достаточно Node.js 20.9 или новее и npm.
 
-First, run the development server:
+## Локальный запуск
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте `http://localhost:3000`. Для запуска production-версии выполните `npm run build`, затем `npm start`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Как пользоваться
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. В режиме **По смыслу** введите тему или метафору, например «Вырастить идею» или «Финансовая подушка». По совпадениям со словарём редактор подберёт до четырёх объектов.
+2. В режиме **По объектам** перечислите названия, например «книга, лампа и растение» или `phone, headphones`. Первое совпадение становится главным объектом. Повтор названия добавляет ещё один экземпляр. Для частичного совпадения редактор показывает пропущенные слова.
+3. Выберите размер и одну из трёх палитр. **S** использует исходники S и экспортирует SVG размером 1200 × 630. **L** использует исходники L и экспортирует 2400 × 1260 с тем же `viewBox`. При смене размера координаты, масштаб и поворот слоёв сохраняются.
+4. Переключайте раскладки **В центре**, **Со смещением** и **Под заголовок**. Команда **Следующий вариант** перебирает их по кругу. Раскладка меняет геометрию всех текущих слоёв, включая добавленные вручную. Кнопка **Собрать композицию** создаёт новый набор слоёв из запроса.
+5. Выберите слой на холсте или в списке. Перетаскивайте его мышью или касанием. Стрелки на сфокусированном слое сдвигают его на 1 единицу холста, а с Shift — на 10. На панели свойств доступны координаты, пропорциональный масштаб, поворот и оформление. Кнопки под списком меняют порядок слоёв, дублируют и удаляют объект. Карточки библиотеки добавляют объекты в текущую сцену.
+6. Нажмите **Скачать SVG**. Файл содержит исходные векторные контуры, оформление и трансформации и открывается самостоятельно.
 
-## Learn More
+## Проверки
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npx tsc --noEmit
+npm run lint
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Ограничения
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Семантический подбор использует фиксированный словарь названий, тематических слов и метафор. Он покрывает распространённые русские формы и часть английских запросов. Свободная интерпретация произвольных метафор и исправление опечаток отсутствуют.
+- Раскладка оценивает пересечения повёрнутых ограничивающих прямоугольников. Допустимые перекрытия зависят от роли, поэтому некоторые контуры могут пересекаться. При ручном редактировании кадрирование задаёт пользователь.
+- Поле ввода управляет подбором. Раскладка **Под заголовок** оставляет слева место для вёрстки текста. Редактор текста в сцене отсутствует.
+- Текущая сцена хранится в памяти страницы. После перезагрузки восстанавливается демонстрационная композиция. Скачанный SVG можно редактировать во внешнем векторном редакторе.
+- Исходники из `public/assets` и `public/examples` предназначены для задания. Сохраняйте их в локальной копии или в хранилище с согласованным доступом.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Архитектура и примеры из кода описаны в [LEARNING_GUIDE.md](LEARNING_GUIDE.md).
