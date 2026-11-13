@@ -1,8 +1,4 @@
 
-    
-  
-// Исходники: snapbuild-svg-library.zip (экспорт из Figma).
-// Теги добавлены для демонстрационного текстового подбора, их можно изменять.
 export const ASSET_LIBRARY = [
   { id: "book", name: "Книга", tags: ["обучение", "знания", "книга", "чтение", "образование"], dimensions: { S: { width: 723, height: 489 }, L: { width: 1446, height: 977 } } },
   { id: "phone", name: "Телефон", tags: ["телефон", "связь", "технологии", "мобильный", "приложение"], dimensions: { S: { width: 399, height: 231 }, L: { width: 797, height: 462 } } },
@@ -24,13 +20,9 @@ export type PaletteId = "lavender" | "peach" | "mint";
 export const assetUrl = (id: AssetId, size: AssetSize, variant: AssetVariant = "main") =>
   `/assets/${size}/${variant}/${id}.svg`;
 
-// Эти восемь цветов соответствуют порядку в palettes.json; меняем все роли по индексам.
 export const PALETTES = {
   lavender: ["#D7CDF5", "#F9ECB0", "#AA9BF0", "#F9A3AA", "#7864D7", "#FFE3E1", "#181817", "#FFFFFF"],
   peach: ["#FDD7B9", "#F9ECB0", "#FAC896", "#80DADA", "#D27532", "#BEEBEB", "#181817", "#FFFFFF"],
   mint: ["#BEEBEB", "#FFD4F2", "#80DADA", "#6D7BFC", "#5ABEBE", "#B6C6FE", "#181817", "#FFFFFF"],
 } as const satisfies Record<PaletteId, readonly string[]>;
-
-// Для ручного маппинга используем базовую палитру lavender.
-// Для фонов применяются только цвета с индексами 0 и 4 (и исходные детали).
 
