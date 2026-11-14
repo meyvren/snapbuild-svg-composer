@@ -82,7 +82,8 @@ textarea { display: block; width: 100%; min-height: 83px; padding: 9px 10px; res
 .layout-options button { padding: 5px 8px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--muted); font-size: 12px; }
 .layout-options button:hover { background: var(--soft); color: var(--ink); }
 .layout-options button[aria-pressed="true"] { background: var(--accent-soft); color: #a63a23; border-color: #ffdfd1; font-weight: 650; }
-.next-layout { min-height: 33px; font-size: 12px; padding: 5px 9px; }
+.layout-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.layout-actions .button { min-height: 33px; font-size: 12px; padding: 5px 9px; }
 
 .layer-list { display: grid; gap: 4px; padding: 0 10px; max-height: 223px; overflow-y: auto; }
 .layer-row { display: flex; width: 100%; min-height: 45px; align-items: center; gap: 8px; text-align: left; padding: 4px 7px; background: var(--panel); border: 1px solid transparent; border-radius: 7px; }
