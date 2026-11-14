@@ -66,6 +66,11 @@ export function Composer() {
     setLayers((current) => arrangeLayers(current, size, next));
   }
 
+  function shuffleLayout() {
+    const seed = Math.floor(Math.random() * 2 ** 32);
+    setLayers((current) => arrangeLayers(current, size, layout, seed));
+  }
+
   function updateLayer(id: string, patch: Partial<Layer>) {
     setLayers((current) => current.map((layer) => layer.id === id ? { ...layer, ...patch } : layer));
   }
@@ -154,7 +159,10 @@ export function Composer() {
               <div className="layout-options" role="group" aria-label="Вариант расположения">
                 {LAYOUTS.map((name, index) => <button type="button" key={name} aria-pressed={layout === index} onClick={() => selectLayout(index as LayoutIndex)}>{name}</button>)}
               </div>
-              <button className="button next-layout" type="button" disabled={!layers.length} onClick={() => selectLayout(((layout + 1) % LAYOUTS.length) as LayoutIndex)}><Icon name="shuffle" size={16} /> Следующий вариант</button>
+              <div className="layout-actions">
+                <button className="button" type="button" disabled={!layers.length} onClick={() => selectLayout(((layout + 1) % LAYOUTS.length) as LayoutIndex)}>Следующий вариант</button>
+                <button className="button" type="button" disabled={!layers.length} onClick={shuffleLayout}><Icon name="shuffle" size={16} /> Перемешать объекты</button>
+              </div>
             </div>
           </section>
 
