@@ -106,12 +106,30 @@ function gridAnchor(index: number, count: number, layout: LayoutIndex): Anchor {
   };
 }
 
-export function arrangeLayers(layers: Layer[], size: AssetSize, layout: LayoutIndex) {
+function randomOffsets(seed: number) {
+  let state = seed >>> 0;
+  function next() {
+    state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+    return state / 2 ** 32;
+  }
+
+  return (min: number, max: number) => {
+    const sign = next() < 0.5 ? -1 : 1;
+    return sign * (min + next() * (max - min));
+  };
+}
+
+export function arrangeLayers(layers: Layer[], size: AssetSize, layout: LayoutIndex, seed?: number) {
   const ordered = [...layers].reverse().sort((a, b) => roleOrder(a) - roleOrder(b));
   const region = layout === 2 ? TITLE_RECT : FRAME_RECT;
+  const offset = seed === undefined ? undefined : randomOffsets(seed);
   const positioned = ordered.reduce<{ layer: Layer; box: Rectangle; role: Layer["role"] }[]>((placed, layer, index) => {
     const anchor = ordered.length > 6 ? gridAnchor(index, ordered.length, layout) : ANCHORS[layout][index];
-    const result = place({ ...layer, ...anchor }, size, region, placed);
+    const point = offset ? {
+      x: anchor.x + offset(anchor.size * 0.3, anchor.size * 0.55),
+      y: anchor.y + offset(anchor.size * 0.12, anchor.size * 0.28),
+    } : anchor;
+    const result = place({ ...layer, ...anchor, x: point.x, y: point.y }, size, region, placed);
     placed.push({ ...result, role: layer.role });
     return placed;
   }, []);
