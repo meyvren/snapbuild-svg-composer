@@ -26,7 +26,7 @@ const CONCEPTS: Record<AssetId, readonly string[]> = {
   folder: ["документ*", "архив*", "упорядоч*", "порядок", "процесс*", "files", "organize", "documents", "archive"],
   pen: ["пиш*", "запис*", "замет*", "писат*", "конспект*", "write", "writing", "notes"],
   wallet: ["трат*", "расход*", "покуп*", "бюджет*", "деньг*", "денеж*", "spend*", "budget", "payment*"],
-  plant: ["вырос*", "выраст*", "расти", "растем", "рост*", "эколог*", "зелень", "природ*", "устойчив*", "grow*", "nature", "eco*"],
+  plant: ["вырос*", "выраст*", "расти", "растем", "рост*", "эколог*", "зелень", "природ*", "устойчив*", "grow*", "nature", "ecol*"],
 };
 
 const PHRASES: { words: string; assets: AssetId[] }[] = [
