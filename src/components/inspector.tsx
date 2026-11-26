@@ -20,7 +20,7 @@ function Coordinate({ axis, value, onChange }: { axis: "X" | "Y"; value: number;
   return (
     <label className="number-field">
       <span>{axis}</span>
-      <input type="number" step="any" aria-label={axis} value={draft ?? Math.round(value)}
+      <input type="number" step="any" aria-label={axis} value={draft ?? value}
         onChange={(event) => {
           setDraft(event.currentTarget.value);
           const next = event.currentTarget.valueAsNumber;
